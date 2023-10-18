@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Validator;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +26,36 @@ Route::get('/upload',function(){
 Route::post('/upload',function(Request $request){
     if(request()->has('mycsv')){
         $file = $request->file('mycsv');
+
+        $data = array_map('str_getcsv',file(request()->mycsv)); 
+        $header = $data[0];
+        dd($header);
+        unset($data[0]);
+        return $data;
+
+
+        // echo("path->".$file->getRealPath());
+        // dd("\nname->".$file->getClientOriginalName());
+        // $data = file($file);
+        // dd($data);
+        // dd(request()->mycsv);
+
+        // $rules = array(
+        //     'attachment' => 'mimes:jpeg,png,jpg,gif,pdf|max:1000',
+        // );
+        // $messages = array(
+        //     'attachment' => ' Image need Less then 1Mb.',
+        // );
+
+        // $validator = Validator::make($request->all(), $rules, $messages);
+
+        // if ($validator->fails()){
+        //     dd("validator has failed");
+        // }else{
+        //     dd("validator was successfull");
+        // }
+
+
         // echo '<br>';
         // echo '<br>';echo '<br>';echo '<br>';
    
@@ -56,8 +87,7 @@ Route::post('/upload',function(Request $request){
     //   Move Uploaded File
     //   $destinationPath = 'uploads';
     //   $file->move($destinationPath,$file->getClientOriginalName());
-    $data = array_map('str_getcsv',file(request()->mycsv)); 
-    return $data[0];
+    
     }
 
 
