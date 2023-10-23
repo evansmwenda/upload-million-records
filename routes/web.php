@@ -24,4 +24,4 @@ Route::get('/upload',[SalesController::class,'index']);
 
 Route::post('/upload',[SalesController::class,'upload']);
 
-Route::get('/test',[SalesController::class,"test"]);
+Route::get('/batch',[SalesController::class,"batch"]);
